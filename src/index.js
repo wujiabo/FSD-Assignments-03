@@ -8,7 +8,7 @@ class Video extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: null,
+            list: null
         };
     }
     render() {
@@ -21,7 +21,7 @@ class Video extends React.Component {
     }
 
     chgList(){
-        this.setState({list:'1111'});
+        this.setState({list:'fffff'});
     }
 }
 
