@@ -21,7 +21,7 @@ export default class VideoPlay extends React.Component {
             <div className="row">
                 <div className="col-md-8 text-center">
                     <div className="embed-responsive embed-responsive-16by9" style={{ backgroundColor: 'black' }}>
-                        <Player ctrl={this.state.ctrl} url={this.state.url} onUpDate={this.setProcess} />
+                        <Player onRef={this.onRef} url={this.state.url} updateProcess={this.setProcess} />
                     </div>
                     <div className="progress">
                         <div className="progress-bar" 
@@ -48,10 +48,15 @@ export default class VideoPlay extends React.Component {
 
     chgCtrl(ctrl) {
         this.setState({ ctrl: ctrl });
+        this.child.ctrlPlayer(ctrl);
     }
 
     setProcess(proc){
         this.setState({process:proc});
+    }
+    
+    onRef = (ref) => {
+        this.child = ref
     }
 
 }
