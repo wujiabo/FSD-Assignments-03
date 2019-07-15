@@ -39,6 +39,7 @@ export default class VideoPlay extends React.Component {
                         aria-valuemin="0" 
                         aria-valuemax="100">{this.state.process}%</div>
                     </div>
+                    <br></br>
                     <Controls url={this.state.url} 
                     isPlay={this.state.isPlay} 
                     isMuted={this.state.isMuted} 
@@ -53,7 +54,7 @@ export default class VideoPlay extends React.Component {
     }
 
     chgMov(url) {
-        this.setState({ url: url , isPlay:false, isMuted:false });
+        this.setState({ url: url , isPlay:false});
     }
 
 

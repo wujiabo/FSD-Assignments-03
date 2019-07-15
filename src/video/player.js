@@ -16,6 +16,7 @@ export default class Player extends React.Component {
         video.addEventListener("ended", () => {
             video.currentTime = 0;
             video.pause();
+            this.props.updateIsPlay(false);
         });
 
         video.addEventListener("timeupdate", () => {
