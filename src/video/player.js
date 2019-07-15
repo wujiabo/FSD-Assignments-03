@@ -4,15 +4,18 @@ export default class Player extends React.Component {
 
     render() {
         return (
-            <div>
-                <video id='media' ref='media' src={this.props.url}>
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
+            <video className="embed-responsive-item" id='media' ref='media' src={this.props.url}>
+                Your browser does not support the video tag.
+            </video>
         );
     }
     componentDidMount() {
+        let video = this.refs.media;
+        
+		video.addEventListener("ended",function(){
+			video.currentTime = 0;
+			video.pause();
+		});
     }
 
     componentWillReceiveProps(newProps) {
@@ -45,10 +48,10 @@ export default class Player extends React.Component {
             }
         }
         if (newProps.ctrl === 'thumbsUp' && this.props.url) {
-            
+
         }
         if (newProps.ctrl === 'thumbsDown' && this.props.url) {
-            
+
         }
     }
 }

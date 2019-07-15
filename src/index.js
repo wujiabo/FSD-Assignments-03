@@ -15,6 +15,7 @@ class Video extends React.Component {
         return (
             <div>
                 <VideoPlay op={this.state.op}/>
+                <br></br>
                 <AddNewVideo onClick={() => this.chgList()}/>
             </div>
         );

@@ -16,12 +16,21 @@ export default class VideoPlay extends React.Component {
 
     render() {
         return (
-            <div>
-                <Player ctrl={this.state.ctrl} url={this.state.url} />
-                <Controls onClick={(control) => this.chgCtrl(control)} />
-                <PlayerList onClick={(url) => this.chgMov(url)} />
-                {this.props.op}
+            <div className="row">
+                <div className="col-md-8 text-center">
+                    <div className="embed-responsive embed-responsive-16by9" style={{ backgroundColor: 'black' }}>
+                        <Player ctrl={this.state.ctrl} url={this.state.url} />
+                    </div>
+                    <div className="progress">
+                        <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </div>
+                    <Controls onClick={(control) => this.chgCtrl(control)} />
+                </div>
+                <div className="col-md-4">
+                    <PlayerList onClick={(url) => this.chgMov(url)} />
+                </div>
             </div>
+
         );
     }
 
