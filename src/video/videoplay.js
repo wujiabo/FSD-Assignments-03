@@ -11,6 +11,7 @@ export default class VideoPlay extends React.Component {
         this.state = {
             ctrl: null,
             url: null,
+            process: 0,
         };
         this.setProcess = this.setProcess.bind(this);
     }
@@ -23,7 +24,12 @@ export default class VideoPlay extends React.Component {
                         <Player ctrl={this.state.ctrl} url={this.state.url} onUpDate={this.setProcess} />
                     </div>
                     <div className="progress">
-                        <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        <div className="progress-bar" 
+                        role="progressbar" 
+                        style={{ width: this.state.process+'%' }} 
+                        aria-valuenow={this.state.process} 
+                        aria-valuemin="0" 
+                        aria-valuemax="100">{this.state.process}%</div>
                     </div>
                     <Controls onClick={(control) => this.chgCtrl(control)} />
                 </div>
@@ -45,8 +51,7 @@ export default class VideoPlay extends React.Component {
     }
 
     setProcess(proc){
-        console.log(proc);
-        console.log(this.state)
+        this.setState({process:proc});
     }
 
 }
