@@ -15,6 +15,16 @@ export default class Player extends React.Component {
 		video.addEventListener("ended",function(){
 			video.currentTime = 0;
 			video.pause();
+        });
+        
+		video.addEventListener("timeupdate",function(){
+			var pValue = 0;
+		    if(isNaN(video.duration)){
+		        pValue = 0;
+		    }else{
+		        pValue = parseInt((video.currentTime/video.duration)*100);
+            }
+            console.log(pValue);
 		});
     }
 
