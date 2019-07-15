@@ -35,9 +35,11 @@ export default class Player extends React.Component {
 
         if (ctrl === 'play' && this.props.url) {
             video.play();
+            this.props.updateIsPlay(true);
         }
         if (ctrl === 'pause' && this.props.url) {
             video.pause();
+            this.props.updateIsPlay(false);
         }
         if (ctrl === 'plus' && this.props.url) {
             if (video.volume <= 0.9) {
@@ -56,8 +58,10 @@ export default class Player extends React.Component {
         if (ctrl === 'muted' && this.props.url) {
             if (video.muted) {
                 video.muted = false;
+                this.props.updateIsMuted(false);
             } else {
                 video.muted = true;
+                this.props.updateIsMuted(true);
             }
         }
         if (ctrl === 'thumbsUp' && this.props.url) {

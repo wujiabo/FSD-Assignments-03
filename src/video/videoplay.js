@@ -12,8 +12,13 @@ export default class VideoPlay extends React.Component {
             ctrl: null,
             url: null,
             process: 0,
+            isPlay: false,
+            isMuted: false,
+            noVideo: true,
         };
         this.setProcess = this.setProcess.bind(this);
+        this.setIsPlay = this.setIsPlay.bind(this);
+        this.setIsMuted = this.setIsMuted.bind(this);
     }
 
     render() {
@@ -21,7 +26,11 @@ export default class VideoPlay extends React.Component {
             <div className="row">
                 <div className="col-md-8 text-center">
                     <div className="embed-responsive embed-responsive-16by9" style={{ backgroundColor: 'black' }}>
-                        <Player onRef={this.onRef} url={this.state.url} updateProcess={this.setProcess} />
+                        <Player onRef={this.onRef} 
+                        url={this.state.url} 
+                        updateProcess={this.setProcess} 
+                        updateIsMuted={this.setIsMuted} 
+                        updateIsPlay={this.setIsPlay}  />
                     </div>
                     <div className="progress">
                         <div className="progress-bar" 
@@ -31,7 +40,10 @@ export default class VideoPlay extends React.Component {
                         aria-valuemin="0" 
                         aria-valuemax="100">{this.state.process}%</div>
                     </div>
-                    <Controls onClick={(control) => this.chgCtrl(control)} />
+                    <Controls url={this.state.url} 
+                    isPlay={this.state.isPlay} 
+                    isMuted={this.state.isMuted} 
+                    onClick={(control) => this.chgCtrl(control)} />
                 </div>
                 <div className="col-md-4">
                     <PlayerList onClick={(url) => this.chgMov(url)} />
@@ -42,7 +54,7 @@ export default class VideoPlay extends React.Component {
     }
 
     chgMov(url) {
-        this.setState({ url: url });
+        this.setState({ url: url ,noVideo: true });
     }
 
 
@@ -53,6 +65,14 @@ export default class VideoPlay extends React.Component {
 
     setProcess(proc){
         this.setState({process:proc});
+    }
+    
+    setIsPlay(isPlay){
+        this.setState({isPlay:isPlay});
+    }
+    
+    setIsMuted(isMuted){
+        this.setState({isMuted:isMuted});
     }
     
     onRef = (ref) => {
