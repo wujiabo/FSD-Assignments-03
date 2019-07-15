@@ -14,7 +14,7 @@ export default class PlayList extends React.Component {
         return (
             this.state.videos.map((video, i) => {
                 return (
-                    <button key={video.id} onClick={() => this.props.onClick(video.url)}>{video.id}</button>
+                    <button key={video.id} onClick={() => this.props.onClick(video.url)}>{video.title}</button>
                 )
             })
         );

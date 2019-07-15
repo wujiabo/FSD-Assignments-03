@@ -10,23 +10,23 @@ export default class VideoPlay extends React.Component {
         super(props);
         this.state = {
             ctrl: null,
-            mov: null,
+            url: null,
         };
     }
 
     render() {
         return (
             <div>
-                <Player ctrl={this.state.ctrl} mov={this.state.mov} />
+                <Player ctrl={this.state.ctrl} url={this.state.url} />
                 <Controls onClick={(control) => this.chgCtrl(control)} />
-                <PlayerList onClick={(mov) => this.chgMov(mov)} />
+                <PlayerList onClick={(url) => this.chgMov(url)} />
                 {this.props.op}
             </div>
         );
     }
 
-    chgMov(mov) {
-        this.setState({ mov: mov });
+    chgMov(url) {
+        this.setState({ url: url });
     }
 
 
