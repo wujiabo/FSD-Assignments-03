@@ -14,7 +14,6 @@ export default class VideoPlay extends React.Component {
             process: 0,
             isPlay: false,
             isMuted: false,
-            noVideo: true,
         };
         this.setProcess = this.setProcess.bind(this);
         this.setIsPlay = this.setIsPlay.bind(this);
@@ -54,7 +53,7 @@ export default class VideoPlay extends React.Component {
     }
 
     chgMov(url) {
-        this.setState({ url: url ,noVideo: true });
+        this.setState({ url: url , isPlay:false, isMuted:false });
     }
 
 
