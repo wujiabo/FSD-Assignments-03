@@ -11,7 +11,6 @@ export default class VideoPlay extends React.Component {
         this.state = {
             ctrl: null,
             mov: null,
-            list: null
         };
     }
 
@@ -20,8 +19,8 @@ export default class VideoPlay extends React.Component {
             <div>
                 <Player ctrl={this.state.ctrl} mov={this.state.mov} />
                 <Controls onClick={(control) => this.chgCtrl(control)} />
-                <PlayerList list={this.list} onClick={(mov) => this.chgMov(mov)} />
-                {this.props.list}
+                <PlayerList onClick={(mov) => this.chgMov(mov)} />
+                {this.props.op}
             </div>
         );
     }

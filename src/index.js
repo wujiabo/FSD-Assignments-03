@@ -8,20 +8,20 @@ class Video extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: null
+            op: null
         };
     }
     render() {
         return (
             <div>
-                <VideoPlay list={this.state.list}/>
+                <VideoPlay op={this.state.op}/>
                 <AddNewVideo onClick={() => this.chgList()}/>
             </div>
         );
     }
 
     chgList(){
-        this.setState({list:'fffff'});
+        this.setState({op:'chgList'});
     }
 }
 
