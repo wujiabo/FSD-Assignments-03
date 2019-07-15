@@ -12,11 +12,17 @@ export default class PlayList extends React.Component {
 
     render() {
         return (
-            this.state.videos.map((video, i) => {
-                return (
-                    <button key={video.id} onClick={() => this.props.onClick(video.url)}>{video.title}</button>
-                )
-            })
+            <ul className="list-group">
+                {
+
+                    this.state.videos.map((video, i) => {
+                        return (
+                            <li key={video.id} className="list-group-item" onClick={() => this.props.onClick(video.url)}>{video.title}</li>
+                        )
+                    })
+                }
+            </ul>
+
         );
     }
 
