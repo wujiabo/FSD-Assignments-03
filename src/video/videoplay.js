@@ -12,6 +12,7 @@ export default class VideoPlay extends React.Component {
             ctrl: null,
             url: null,
         };
+        this.setProcess = this.setProcess.bind(this);
     }
 
     render() {
@@ -19,7 +20,7 @@ export default class VideoPlay extends React.Component {
             <div className="row">
                 <div className="col-md-8 text-center">
                     <div className="embed-responsive embed-responsive-16by9" style={{ backgroundColor: 'black' }}>
-                        <Player ctrl={this.state.ctrl} url={this.state.url} />
+                        <Player ctrl={this.state.ctrl} url={this.state.url} onUpDate={this.setProcess} />
                     </div>
                     <div className="progress">
                         <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
@@ -41,6 +42,11 @@ export default class VideoPlay extends React.Component {
 
     chgCtrl(ctrl) {
         this.setState({ ctrl: ctrl });
+    }
+
+    setProcess(proc){
+        console.log(proc);
+        console.log(this.state)
     }
 
 }

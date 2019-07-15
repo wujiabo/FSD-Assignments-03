@@ -17,14 +17,14 @@ export default class Player extends React.Component {
 			video.pause();
         });
         
-		video.addEventListener("timeupdate",function(){
+		video.addEventListener("timeupdate",()=>{
 			var pValue = 0;
 		    if(isNaN(video.duration)){
 		        pValue = 0;
 		    }else{
 		        pValue = parseInt((video.currentTime/video.duration)*100);
             }
-            console.log(pValue);
+            this.props.onUpDate(pValue);
 		});
     }
 
