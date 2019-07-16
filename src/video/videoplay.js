@@ -83,7 +83,13 @@ export default class VideoPlay extends React.Component {
 
     chgCtrl(ctrl) {
         this.setState({ ctrl: ctrl });
-        this.child.ctrlPlayer(ctrl);
+        if(ctrl === 'thumbsUp'){
+            this.thumbsUp();
+        }else if(ctrl === 'thumbsDown'){
+            this.thumbsDown();
+        }else{
+            this.child.ctrlPlayer(ctrl);
+        }
     }
 
     setProcess(proc) {
@@ -102,4 +108,14 @@ export default class VideoPlay extends React.Component {
         this.child = ref
     }
 
+
+    thumbsUp(){
+        console.log(this.state.id);
+        this.setState({likes:this.state.likes+1});
+    }
+    
+    thumbsDown(){
+        console.log(this.state.id);
+        this.setState({unlikes:this.state.unlikes+1});
+    }
 }

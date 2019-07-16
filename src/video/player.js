@@ -65,12 +65,6 @@ export default class Player extends React.Component {
                 this.props.updateIsMuted(true);
             }
         }
-        if (ctrl === 'thumbsUp' && this.props.url) {
-
-        }
-        if (ctrl === 'thumbsDown' && this.props.url) {
-
-        }
     }
 
 
