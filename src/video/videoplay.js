@@ -110,12 +110,24 @@ export default class VideoPlay extends React.Component {
 
 
     thumbsUp(){
-        console.log(this.state.id);
-        this.setState({likes:this.state.likes+1});
+        const _this = this;
+        axios.patch('http://localhost:8080/videos/' + this.state.id ,{likes:this.state.likes+1})
+            .then(function (response) {
+                _this.setState({likes:_this.state.likes+1});
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
     
     thumbsDown(){
-        console.log(this.state.id);
-        this.setState({unlikes:this.state.unlikes+1});
+        const _this = this;
+        axios.patch('http://localhost:8080/videos/' + this.state.id ,{unlikes:this.state.unlikes+1})
+            .then(function (response) {
+                _this.setState({unlikes:_this.state.unlikes+1});
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 }
