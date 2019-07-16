@@ -83,11 +83,11 @@ export default class VideoPlay extends React.Component {
 
     chgCtrl(ctrl) {
         this.setState({ ctrl: ctrl });
-        if(ctrl === 'thumbsUp'){
+        if (ctrl === 'thumbsUp') {
             this.thumbsUp();
-        }else if(ctrl === 'thumbsDown'){
+        } else if (ctrl === 'thumbsDown') {
             this.thumbsDown();
-        }else{
+        } else {
             this.child.ctrlPlayer(ctrl);
         }
     }
@@ -109,25 +109,46 @@ export default class VideoPlay extends React.Component {
     }
 
 
-    thumbsUp(){
+    thumbsUp() {
         const _this = this;
-        axios.patch('http://localhost:8080/videos/' + this.state.id ,{likes:this.state.likes+1})
+        axios.patch('http://localhost:8080/videos/' + this.state.id, { likes: this.state.likes + 1 })
             .then(function (response) {
-                _this.setState({likes:_this.state.likes+1});
+                _this.setState({ likes: _this.state.likes + 1 });
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
-    
-    thumbsDown(){
+
+    thumbsDown() {
         const _this = this;
-        axios.patch('http://localhost:8080/videos/' + this.state.id ,{unlikes:this.state.unlikes+1})
+        axios.patch('http://localhost:8080/videos/' + this.state.id, { unlikes: this.state.unlikes + 1 })
             .then(function (response) {
-                _this.setState({unlikes:_this.state.unlikes+1});
+                _this.setState({ unlikes: _this.state.unlikes + 1 });
             })
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+
+    componentDidMount() {
+        const _this = this;
+        axios.get('http://localhost:8080/histories')
+            .then(function (response) {
+                if (response.data.length > 0) {
+                    axios.get('http://localhost:8080/videos/' + response.data[response.data.length - 1].id)
+                        .then(function (response) {
+                            _this.chgMov(response.data.id,response.data.url);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
     }
 }
