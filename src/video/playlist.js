@@ -28,7 +28,7 @@ export default class PlayList extends React.Component {
 
     componentDidMount() {
         const _this = this;
-        axios.get('http://localhost:8080/videos')
+        axios.get('http://localhost:8080/videos?approve=yes')
             .then(function (response) {
                 _this.setState({
                     videos: response.data,
