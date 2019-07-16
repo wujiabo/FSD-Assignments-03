@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class Controls extends React.Component {
-
+    
     render() {
         return (
 
@@ -12,8 +12,8 @@ export default class Controls extends React.Component {
                 <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-minus" onClick={() => this.props.onClick('minus')}></button>
                 <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-refresh" onClick={() => this.props.onClick('refresh')}></button>
                 <button type="button" disabled={this.props.url == null} className={this.props.isMuted?'btn btn-primary fa fa-volume-off':'btn btn-primary fa fa-volume-up'}onClick={() => this.props.onClick('muted')}></button>
-                <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-thumbs-up" onClick={() => this.props.onClick('thumbsUp')}></button>
-                <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-thumbs-down" onClick={() => this.props.onClick('thumbsDown')}></button>
+                <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-thumbs-up" onClick={() => this.props.onClick('thumbsUp')}>{this.props.likes}</button>
+                <button type="button" disabled={this.props.url == null} className="btn btn-primary fa fa-thumbs-down" onClick={() => this.props.onClick('thumbsDown')}>{this.props.unlikes}</button>
             </div>
         );
     }
