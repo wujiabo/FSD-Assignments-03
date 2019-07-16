@@ -21,18 +21,19 @@ export default class AddNewVideo extends React.Component {
                         <button type="button" className="btn btn-primary" onClick={()=>this.saveVideo()} >Add
             Video</button>
                     </div>
-                    <div className="col-md-6" >
+                    <div className="col-md-6" hidden={this.state.currentEditId == null}>
                         <input type="text" ref="titleEdit" className="form-control" />
                         <input type="text" ref="urlEdit" className="form-control" />
 
                         <div className="btn-group">
-                            <button type="button" className="btn btn-primary" >
+                            <button type="button" className="btn btn-primary" onClick={()=>this.saveEdit()}>
                                 Edit Video
                         </button>
-                            <button type="button" className="btn btn-primary"  >
+                            <button type="button" className="btn btn-primary" onClick={()=>this.cancelEdit()} >
                                 Cancel Edit Video
-            </button></div>
+                        </button></div>
                     </div>
+
                 </div>
                 <div>
                     <table className="table table-striped">
@@ -135,5 +136,22 @@ export default class AddNewVideo extends React.Component {
         this.setState({currentEditId:video.id});
         this.refs.titleEdit.value = video.title;
         this.refs.urlEdit.value = video.url;
+    }
+
+    cancelEdit(){
+        this.setState({currentEditId:null});
+        this.refs.titleEdit.value = null;
+        this.refs.urlEdit.value = null;
+    }
+
+    saveEdit(){
+        const _this = this;
+        axios.patch('http://localhost:8080/videos/' + this.state.currentEditId, {title:this.refs.titleEdit.value,url:this.refs.urlEdit.value, approve: 'no' })
+            .then(function (response) {
+                _this.initVideo();
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 }
