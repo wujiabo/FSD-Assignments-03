@@ -61,7 +61,7 @@ export default class AddNewVideo extends React.Component {
                                                 <button type="button" className="btn btn-primary" >Edit</button>
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" >Detele</button>
+                                                <button type="button" className="btn btn-primary" onClick={()=>this.deleteVideo(video.id)} >Detele</button>
                                             </td>
                                             <td>
                                                 <button type="button" className="btn btn-primary" disabled={video.approve}>Approve</button>
@@ -102,6 +102,17 @@ export default class AddNewVideo extends React.Component {
                 _this.initVideo();
                 _this.refs.titleNew.value = "";
                 _this.refs.urlNew.value = "";
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    deleteVideo(id){
+        const _this = this;
+        axios.delete('http://localhost:8080/videos/'+id)
+            .then(function (response) {
+                _this.initVideo();
             })
             .catch(function (error) {
                 console.log(error);
