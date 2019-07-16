@@ -6,7 +6,8 @@ export default class AddNewVideo extends React.Component {
         super(props);
         this.state = {
             videos: [],
-            currentEditId:null,
+            currentEditId: null,
+            _warning:null,
         }
     }
 
@@ -18,7 +19,7 @@ export default class AddNewVideo extends React.Component {
                         <input type="text" ref="titleNew" className="form-control" placeholder="Title" />
                         <input type="text" ref="urlNew" className="form-control" placeholder="Youtube URL" />
 
-                        <button type="button" className="btn btn-primary" onClick={()=>this.saveVideo()} >Add
+                        <button type="button" className="btn btn-primary" onClick={() => this.saveVideo()} >Add
             Video</button>
                     </div>
                     <div className="col-md-6" hidden={this.state.currentEditId == null}>
@@ -26,10 +27,10 @@ export default class AddNewVideo extends React.Component {
                         <input type="text" ref="urlEdit" className="form-control" />
 
                         <div className="btn-group">
-                            <button type="button" className="btn btn-primary" onClick={()=>this.saveEdit()}>
+                            <button type="button" className="btn btn-primary" onClick={() => this.saveEdit()}>
                                 Edit Video
                         </button>
-                            <button type="button" className="btn btn-primary" onClick={()=>this.cancelEdit()} >
+                            <button type="button" className="btn btn-primary" onClick={() => this.cancelEdit()} >
                                 Cancel Edit Video
                         </button></div>
                     </div>
@@ -60,13 +61,13 @@ export default class AddNewVideo extends React.Component {
                                                 {video.url}
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" onClick={()=>this.toEdit(video)}>Edit</button>
+                                                <button type="button" className="btn btn-primary" onClick={() => this.toEdit(video)}>Edit</button>
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" onClick={()=>this.deleteVideo(video.id)} >Detele</button>
+                                                <button type="button" className="btn btn-primary" onClick={() => this.deleteVideo(video.id)} >Detele</button>
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" disabled={video.approve === 'yes'} onClick={()=>this.approveVideo(video.id)} >Approve</button>
+                                                <button type="button" className="btn btn-primary" disabled={video.approve === 'yes'} onClick={() => this.approveVideo(video.id)} >Approve</button>
                                             </td>
                                         </tr>
                                     )
@@ -83,7 +84,7 @@ export default class AddNewVideo extends React.Component {
         this.initVideo();
     }
 
-    initVideo(){
+    initVideo() {
         const _this = this;
         axios.get('http://localhost:8080/videos')
             .then(function (response) {
@@ -96,10 +97,28 @@ export default class AddNewVideo extends React.Component {
             })
     }
 
-    saveVideo(){
-        let video = {title:this.refs.titleNew.value,url:this.refs.urlNew.value,approve:'no',likes:0,unlikes:0,percent:0};
+    saveVideo() {
+
+        let title = this.refs.titleNew.value.trim();
+        let url = this.refs.urlNew.value.trim();
+        if (!title) {
+            this.setState({_warning:'Title is empty.'});
+            return;
+        }
+        if (!url) {
+            this.setState({_warning:'Url is empty.'});
+            return;
+        }
+        if (!this.isURL(url)) {
+            this.setState({_warning:'Url is not correct.'});
+            return;
+        }
+        
+        this.setState({_warning:null});
+
+        let video = { title: title, url: url, approve: 'no', likes: 0, unlikes: 0, percent: 0 };
         const _this = this;
-        axios.post('http://localhost:8080/videos',video)
+        axios.post('http://localhost:8080/videos', video)
             .then(function (response) {
                 _this.initVideo();
                 _this.refs.titleNew.value = "";
@@ -110,9 +129,9 @@ export default class AddNewVideo extends React.Component {
             })
     }
 
-    deleteVideo(id){
+    deleteVideo(id) {
         const _this = this;
-        axios.delete('http://localhost:8080/videos/'+id)
+        axios.delete('http://localhost:8080/videos/' + id)
             .then(function (response) {
                 _this.initVideo();
             })
@@ -121,7 +140,7 @@ export default class AddNewVideo extends React.Component {
             })
     }
 
-    approveVideo(id){
+    approveVideo(id) {
         const _this = this;
         axios.patch('http://localhost:8080/videos/' + id, { approve: 'yes' })
             .then(function (response) {
@@ -132,26 +151,54 @@ export default class AddNewVideo extends React.Component {
             })
     }
 
-    toEdit(video){
-        this.setState({currentEditId:video.id});
+    toEdit(video) {
+        this.setState({ currentEditId: video.id });
         this.refs.titleEdit.value = video.title;
         this.refs.urlEdit.value = video.url;
     }
 
-    cancelEdit(){
-        this.setState({currentEditId:null});
+    cancelEdit() {
+        this.setState({ currentEditId: null });
         this.refs.titleEdit.value = null;
         this.refs.urlEdit.value = null;
     }
 
-    saveEdit(){
+    saveEdit() {
+        let title = this.refs.titleEdit.value.trim();
+        let url = this.refs.urlEdit.value.trim();
+        if (!title) {
+            this.setState({_warning:'Title is empty.'});
+            return;
+        }
+        if (!url) {
+            this.setState({_warning:'Url is empty.'});
+            return;
+        }
+        if (!this.isURL(url)) {
+            this.setState({_warning:'Url is not correct.'});
+            return;
+        }
+        
+        this.setState({_warning:null});
+        
         const _this = this;
-        axios.patch('http://localhost:8080/videos/' + this.state.currentEditId, {title:this.refs.titleEdit.value,url:this.refs.urlEdit.value, approve: 'no' })
+        axios.patch('http://localhost:8080/videos/' + this.state.currentEditId, { title: title, url: url, approve: 'no' })
             .then(function (response) {
                 _this.initVideo();
+                _this.cancelEdit();
             })
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    isURL(url) {
+        const strRegex = '(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]';
+        const re = new RegExp(strRegex);
+        if (re.test(url)) {
+            return (true);
+        } else {
+            return (false);
+        }
     }
 }
