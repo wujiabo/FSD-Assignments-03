@@ -29,6 +29,9 @@ export default class PlayList extends React.Component {
 
         );
     }
+    componentWillReceiveProps(newProps) {
+        console.log('Component WILL RECEIVE PROPS!' + newProps.chgList)
+    }
 
     componentDidMount() {
         this.initVideo();

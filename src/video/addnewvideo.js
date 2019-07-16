@@ -95,6 +95,7 @@ export default class AddNewVideo extends React.Component {
                 _this.setState({
                     videos: response.data
                 });
+                _this.props.chgList()
             })
             .catch(function (error) {
                 console.log(error);
