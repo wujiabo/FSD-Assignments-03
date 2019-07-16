@@ -6,6 +6,7 @@ export default class AddNewVideo extends React.Component {
         super(props);
         this.state = {
             videos: [],
+            currentEditId:null,
         }
     }
 
@@ -21,8 +22,8 @@ export default class AddNewVideo extends React.Component {
             Video</button>
                     </div>
                     <div className="col-md-6" >
-                        <input type="text" className="form-control" />
-                        <input type="text" className="form-control" />
+                        <input type="text" ref="titleEdit" className="form-control" />
+                        <input type="text" ref="urlEdit" className="form-control" />
 
                         <div className="btn-group">
                             <button type="button" className="btn btn-primary" >
@@ -58,7 +59,7 @@ export default class AddNewVideo extends React.Component {
                                                 {video.url}
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" >Edit</button>
+                                                <button type="button" className="btn btn-primary" onClick={()=>this.toEdit(video)}>Edit</button>
                                             </td>
                                             <td>
                                                 <button type="button" className="btn btn-primary" onClick={()=>this.deleteVideo(video.id)} >Detele</button>
@@ -128,5 +129,11 @@ export default class AddNewVideo extends React.Component {
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    toEdit(video){
+        this.setState({currentEditId:video.id});
+        this.refs.titleEdit.value = video.title;
+        this.refs.urlEdit.value = video.url;
     }
 }
