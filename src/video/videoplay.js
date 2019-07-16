@@ -54,7 +54,7 @@ export default class VideoPlay extends React.Component {
                         onClick={(control) => this.chgCtrl(control)} />
                 </div>
                 <div className="col-md-4">
-                    <PlayerList onClick={(id, url) => this.chgMov(id, url)} />
+                    <PlayerList id={this.state.id} onClick={(id, url) => this.chgMov(id, url)} />
                 </div>
             </div>
 

@@ -17,7 +17,11 @@ export default class PlayList extends React.Component {
 
                     this.state.videos.map((video, i) => {
                         return (
-                            <li key={video.id} className="list-group-item" onClick={() => this.props.onClick(video.id,video.url)}>{video.title}</li>
+                            
+                            <li style={{cursor:'pointer'}} key={video.id} className="list-group-item" onClick={() => this.props.onClick(video.id, video.url)}>
+                            {this.props.id === video.id?<i className="fa fa-hand-o-right" aria-hidden="true"></i>:<div></div>}
+                            {video.title}
+                            </li>
                         )
                     })
                 }
@@ -27,6 +31,10 @@ export default class PlayList extends React.Component {
     }
 
     componentDidMount() {
+        this.initVideo();
+    }
+
+    initVideo() {
         const _this = this;
         axios.get('http://localhost:8080/videos?approve=yes')
             .then(function (response) {
@@ -42,6 +50,5 @@ export default class PlayList extends React.Component {
                     error: error
                 })
             })
-
     }
 }
