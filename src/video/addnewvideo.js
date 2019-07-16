@@ -95,7 +95,6 @@ export default class AddNewVideo extends React.Component {
                 _this.setState({
                     videos: response.data
                 });
-                _this.props.chgList()
             })
             .catch(function (error) {
                 console.log(error);
@@ -139,6 +138,7 @@ export default class AddNewVideo extends React.Component {
         axios.delete('http://localhost:8080/videos/' + id)
             .then(function (response) {
                 _this.initVideo();
+                _this.props.chgList()
             })
             .catch(function (error) {
                 console.log(error);
@@ -150,6 +150,7 @@ export default class AddNewVideo extends React.Component {
         axios.patch('http://localhost:8080/videos/' + id, { approve: 'yes' })
             .then(function (response) {
                 _this.initVideo();
+                _this.props.chgList()
             })
             .catch(function (error) {
                 console.log(error);
@@ -191,6 +192,7 @@ export default class AddNewVideo extends React.Component {
             .then(function (response) {
                 _this.initVideo();
                 _this.cancelEdit();
+                _this.props.chgList()
             })
             .catch(function (error) {
                 console.log(error);
