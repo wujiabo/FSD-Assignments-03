@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class Player extends React.Component {
 
@@ -37,6 +38,13 @@ export default class Player extends React.Component {
         if (ctrl === 'play' && this.props.url) {
             video.play();
             this.props.updateIsPlay(true);
+            
+            axios.post('http://localhost:8080/histories/', { videoId: this.props.id,createTime:new Date() })
+                .then(function (response) {
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
         if (ctrl === 'pause' && this.props.url) {
             video.pause();
@@ -55,6 +63,12 @@ export default class Player extends React.Component {
         if (ctrl === 'refresh' && this.props.url) {
             video.load();
             video.play();
+            axios.post('http://localhost:8080/histories/', { videoId: this.props.id,createTime:new Date() })
+                .then(function (response) {
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
         if (ctrl === 'muted' && this.props.url) {
             if (video.muted) {

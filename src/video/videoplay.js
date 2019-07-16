@@ -31,6 +31,7 @@ export default class VideoPlay extends React.Component {
                     <div className="embed-responsive embed-responsive-16by9" style={{ backgroundColor: 'black' }}>
                         <Player onRef={this.onRef}
                             url={this.state.url}
+                            id={this.state.id}
                             updateProcess={this.setProcess}
                             updateIsMuted={this.setIsMuted}
                             updateIsPlay={this.setIsPlay} />
@@ -137,7 +138,7 @@ export default class VideoPlay extends React.Component {
         axios.get('http://localhost:8080/histories')
             .then(function (response) {
                 if (response.data.length > 0) {
-                    axios.get('http://localhost:8080/videos/' + response.data[response.data.length - 1].id)
+                    axios.get('http://localhost:8080/videos/' + response.data[response.data.length - 1].videoId)
                         .then(function (response) {
                             _this.chgMov(response.data.id,response.data.url);
                         })
