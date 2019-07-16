@@ -37,6 +37,9 @@ export default class AddNewVideo extends React.Component {
 
                 </div>
                 <div>
+                    {this.state._warning != null ? <div class="alert alert-warning" role="alert">
+                        {this.state._warning}
+                    </div>:<div></div>}
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -85,6 +88,7 @@ export default class AddNewVideo extends React.Component {
     }
 
     initVideo() {
+        this.setState({_warning:null});
         const _this = this;
         axios.get('http://localhost:8080/videos')
             .then(function (response) {
@@ -180,7 +184,7 @@ export default class AddNewVideo extends React.Component {
         }
         
         this.setState({_warning:null});
-        
+
         const _this = this;
         axios.patch('http://localhost:8080/videos/' + this.state.currentEditId, { title: title, url: url, approve: 'no' })
             .then(function (response) {
